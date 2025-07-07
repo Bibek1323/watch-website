@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<div style="font-family: 'Segoe UI', sans-serif; max-width: 800px; margin: auto; padding: 30px; background: #fff; box-shadow: 0 0 15px rgba(0,0,0,0.1); border-radius: 8px;">
+
+  <h2 style="color: #28a745;">✅ Order Confirmed!</h2>
+  <p style="font-size: 18px;">Thank you for shopping with Timora, <strong>{{ user.username }}</strong> ({{ user.email }})</p>
+
+  <hr style="margin: 20px 0;">
+
+  <h3 style="color: #555;">📦 Order Summary</h3>
+  {% for item in watches %}
+    <div style="display: flex; margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 5px;">
+      <img src="{{ item.image }}" alt="{{ item.name }}" width="100" height="100" style="object-fit: cover; border-radius: 5px; margin-right: 15px;">
+      <div>
+        <strong>{{ item.name }}</strong><br>
+        <small>Category: {{ item.category }}</small><br>
+        ₹{{ item.price }} × {{ item.quantity }}
+      </div>
+    </div>
+  {% endfor %}
+
+  <hr style="margin: 20px 0;">
+
+  <h3 style="color: #555;">📍 Shipping Address</h3>
+  {% if address %}
+    <div style="line-height: 1.6; font-size: 16px;">
+      {{ address.name }}<br>
+      {{ address.address_line }}<br>
+      {{ address.city }}, {{ address.state }} - {{ address.pincode }}<br>
+      {{ address.country }}<br>
+      📞 {{ address.phone }}
+    </div>
+  {% else %}
+    <p><em>No address found.</em></p>
+  {% endif %}
+
+  <hr style="margin: 20px 0;">
+
+  <h3 style="color: #555;">💳 Payment Summary</h3>
+  <table style="width: 100%; font-size: 16px;">
+    <tr><td>Payment Method:</td><td><strong>{{ payment_method }}</strong></td></tr>
+    <tr><td>Subtotal:</td><td>₹{{ total }}</td></tr>
+    <tr><td>Discount (5%):</td><td>₹{{ discount }}</td></tr>
+    <tr><td><strong>Total Paid:</strong></td><td><strong>₹{{ total_after_discount }}</strong></td></tr>
+    <tr><td>Order Time:</td><td>{{ timestamp.strftime('%Y-%m-%d %H:%M') }}</td></tr>
+  </table>
+
+  <p style="margin-top: 30px; text-align: center;">
+    <a href="{{ url_for('main.home') }}" style="color: #fff; background: #007bff; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Continue Shopping</a>
+  </p>
+</div>
+{% endblock %}

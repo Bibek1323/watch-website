@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+    .watch-detail-container {
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    .watch-detail-image {
+        flex: 1 1 250px;
+        text-align: center;
+    }
+
+    .watch-detail-image img {
+        width: 100%;
+        max-width: 280px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .watch-info {
+        flex: 2 1 500px;
+    }
+
+    .watch-info h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #2c2c2c;
+    }
+
+    .watch-info p {
+        font-size: 1rem;
+        margin: 0.4rem 0;
+        color: #555;
+    }
+
+    .watch-info ul {
+        margin-top: 0.5rem;
+        padding-left: 1.2rem;
+    }
+
+    .watch-info ul li {
+        margin-bottom: 0.3rem;
+    }
+
+    .add-wishlist-link {
+        display: inline-block;
+        margin-top: 1rem;
+        padding: 0.5rem 1rem;
+        background-color: #b98a56;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: background 0.3s ease;
+    }
+
+    .add-wishlist-link:hover {
+        background-color: #9e7342;
+    }
+    .action-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #000;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #444;
+}
+
+.cart-btn {
+  background-color: #2c3e50;
+}
+
+.wishlist-btn {
+  background-color: #8e44ad;
+}
+
+</style>
+
+<div class="watch-detail-container">
+    <div class="watch-detail-image">
+        <img src="{{ url_for('static', filename=watch.image) }}" alt="{{ watch.name }}">
+    </div>
+
+    <div class="watch-info">
+        <h2>{{ watch.name }}</h2>
+        <p><strong>Brand:</strong> {{ watch.brand }}</p>
+        <p><strong>Category:</strong> {{ watch.category }}</p>
+        <p><strong>Price:</strong> ₹{{ watch.price }}</p>
+        <p><strong>Description:</strong> {{ watch.description }}</p>
+
+        <h4>Features:</h4>
+        <ul>
+            {% for feature in watch.features %}
+                <li>{{ feature }}</li>
+            {% endfor %}
+        </ul>
+
+        <h4>Specifications:</h4>
+        <ul>
+            {% for key, value in watch.specifications.items() %}
+                <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+
+        {% if current_user.is_authenticated %}
+        <div class="product-actions">
+  <a href="{{ url_for('main.add_to_cart', watch_id=watch.id) }}" class="btn cart-btn">🛒 Add to Cart</a>
+  <a href="{{ url_for('main.add_to_wishlist', watch_id=watch.id) }}" class="btn wishlist-btn">❤️ Add to Wishlist</a>
+</div>
+
+{% else %}
+  <p><a href="{{ url_for('main.login') }}">Login</a> to add to cart or wishlist.</p>
+{% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

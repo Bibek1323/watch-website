@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Manage Address</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.name.label }} {{ form.name(size=40) }}<br>
+    {{ form.phone.label }} {{ form.phone(size=40) }}<br>
+    {{ form.address.label }} {{ form.address(rows=3, cols=40) }}<br>
+    {{ form.pincode.label }} {{ form.pincode(size=20) }}<br>
+    {{ form.city.label }} {{ form.city(size=30) }}<br>
+    {{ form.state.label }} {{ form.state(size=30) }}<br>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+{% endblock %}

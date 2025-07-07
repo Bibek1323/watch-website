@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+.about-section {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f9f6f2;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  font-family: 'Roboto Slab', serif;
+  animation: fadeIn 1s ease-in;
+}
+
+.about-section h1 {
+  font-size: 2.5rem;
+  color: #b98a56;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 1.2rem;
+  text-align: justify;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.about-section {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f9f6f2;
+  border-radius: 10px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  font-family: 'Roboto Slab', serif;
+  animation: fadeIn 1s ease-in;
+}
+
+.about-section h1 {
+  font-size: 2.5rem;
+  color: #b98a56;
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 1.2rem;
+  text-align: justify;
+}
+
+.about-image {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+
+<div style="text-align: center; font-size: 3rem; margin-bottom: 1rem;">⌚</div>
+
+<section class="about-section">
+    <h1>About Timora</h1>
+    <p>
+        <strong>Timora – A Timeless Collection</strong> is a luxury watch portfolio crafted to reflect elegance, precision, and heritage. 
+        Our curated collection showcases a diverse range of timepieces — from modern chronographs to vintage classics — 
+        each representing a perfect blend of craftsmanship and innovation.
+    </p>
+
+    <p>
+        Whether you're a collector, enthusiast, or simply someone who appreciates fine design, 
+        Timora aims to deliver a digital experience as timeless as the watches it presents.
+    </p>
+
+    <p>
+        This website is developed as part of an internship project, with special focus on backend development using Flask, 
+        dynamic routing, and UI collaboration.
+    </p>
+      <div  class="about-image">
+        <img src="{{ url_for('static', filename='images/about_watch.png') }}" alt="Watch Website Preview">
+    </div>
+</section>
+
+</section>
+{% endblock content %}

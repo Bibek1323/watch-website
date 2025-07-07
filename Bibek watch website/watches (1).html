@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="section-title">Explore Our Timepieces</h2>
+
+<!-- Filters -->
+<form method="get" class="filter-form">
+    <label>Brand:</label>
+    <select name="brand" onchange="this.form.submit()">
+        <option value="">All Brands</option>
+        {% for brand in brands %}
+            <option value="{{ brand }}" {% if brand == selected_brand %}selected{% endif %}>{{ brand }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Category:</label>
+    <select name="category" onchange="this.form.submit()">
+        <option value="">All Categories</option>
+        {% for category in categories %}
+            <option value="{{ category }}" {% if category == selected_category %}selected{% endif %}>{{ category }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+<!-- Watch Grid -->
+<div class="watch-grid">
+    {% for watch in watches %}
+    <div class="watch-card animate-on-scroll">
+        <img src="{{ url_for('static', filename=watch.image) }}" alt="{{ watch.name }}" class="watch-img">
+        <h3 class="watch-name">{{ watch.name }}</h3>
+        <p class="watch-price">₹{{ watch.price }}</p>
+        <a href="{{ url_for('main.watch_detail', watch_id=watch.id) }}" class="view-button">View Details</a>
+    </div>
+    {% endfor %}
+</div>
+<style>
+    
+/* Title */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #b98a56;
+    letter-spacing: 0.5px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: #b98a56;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* Filters */
+.filter-form {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.filter-form label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.filter-form select {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.filter-form select:hover {
+    border-color: #b98a56;
+}
+
+/* Grid Layout */
+.watch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    padding: 0 1.5rem;
+}
+
+/* Watch Card */
+.watch-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+    padding: 1.2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.watch-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.watch-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: transform 0.3s;
+}
+
+.watch-card:hover .watch-img {
+    transform: scale(1.02);
+}
+
+/* Text Details */
+.watch-name {
+    font-family: 'Segoe UI Semibold', 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    color: #222;
+    margin: 0.5rem 0 0.3rem;
+}
+
+.watch-price {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+/* View Button */
+.view-button {
+    background-color: #b98a56;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.view-button:hover {
+    background-color: #a17445;
+    transform: scale(1.05);
+}
+
+/* Animation on scroll (optional) */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .filter-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .watch-img {
+        height: 200px;
+    }
+}
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const elements = document.querySelectorAll(".animate-on-scroll");
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    elements.forEach(el => observer.observe(el));
+  });
+</script>
+
+{% endblock %}

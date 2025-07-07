@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.signup-container {
+  max-width: 500px;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.signup-container h2 {
+  font-family: 'Playfair Display', serif;
+  color: #b98a56;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.signup-container label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+.signup-container input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+
+.signup-container button {
+  width: 100%;
+  background-color: #b98a56;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.signup-container button:hover {
+  background-color: #a27244;
+}
+</style>
+
+<div class="signup-container">
+    <h2>Create Account</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <label for="username">{{ form.username.label }}</label>
+        {{ form.username(class="form-control") }}
+
+        <label for="email">{{ form.email.label }}</label>
+        {{ form.email(class="form-control") }}
+
+        <label for="password">{{ form.password.label }}</label>
+        {{ form.password(class="form-control") }}
+
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+
+{% endblock %}

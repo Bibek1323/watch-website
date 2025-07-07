@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="wishlist-heading">❤️ Your Wishlist</h2>
+
+    {% if watches %}
+        <div class="row">
+            {% for watch in watches %}
+                <div class="col-md-4">
+                    <div class="wishlist-card card mb-4 position-relative">
+                        <!-- Delete Button -->
+                        <form action="{{ url_for('main.remove_from_wishlist', watch_id=watch.id) }}" method="POST" class="delete-form">
+                            <button type="submit" class="delete-btn" title="Remove from wishlist">✖</button>
+                        </form>
+
+                        <img src="{{ url_for('static', filename=watch.image) }}" class="card-img-top" alt="{{ watch.name }}">
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ watch.name }}</h5>
+                            <p class="card-text">{{ watch.description }}</p>
+                            <p class="card-text"><strong>₹{{ watch.price }}</strong></p>
+
+                            <a href="{{ url_for('main.checkout', watch_id=watch.id) }}" class="btn btn-buy">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted text-center">No watches in your wishlist.</p>
+    {% endif %}
+</div>
+
+<!-- ✅ CSS Styling -->
+<style>
+.wishlist-heading {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.wishlist-card {
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    overflow: hidden;
+    position: relative;
+    background-color: #fff;
+    transition: transform 0.2s ease;
+}
+
+.wishlist-card:hover {
+    transform: translateY(-4px);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+    border-bottom: 1px solid #eee;
+}
+
+.btn-buy {
+    background-color: #b98a56;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buy:hover {
+    background-color: #a17445;
+}
+
+.delete-form {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 5;
+}
+
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #cc0000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.delete-btn:hover {
+    color: #ff0000;
+    transform: scale(1.2);
+}
+</style>
+{% endblock %}

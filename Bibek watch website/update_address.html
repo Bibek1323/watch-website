@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>🏠 Update Address</h2>
+
+  <form method="POST" class="address-form">
+    <div class="form-group">
+  <label>Name</label>
+  <input name="name" class="form-control" required value="{{ address.name if address else '' }}">
+</div>
+
+    <div class="form-group">
+      <label>Phone</label>
+      <input name="phone" class="form-control" required value="{{ address.phone if address else '' }}">
+    </div>
+    <div class="form-group">
+      <label>Address</label>
+      <input name="address_line" class="form-control" required value="{{ address.address_line if address else '' }}">
+    </div>
+    <div class="form-group">
+      <label>City</label>
+      <input name="city" class="form-control" required value="{{ address.city if address else '' }}">
+    </div>
+    <div class="form-group">
+      <label>State</label>
+      <input name="state" class="form-control" required value="{{ address.state if address else '' }}">
+    </div>
+    <div class="form-group">
+      <label>Pincode</label>
+      <input name="pincode" class="form-control" required value="{{ address.pincode if address else '' }}">
+    </div>
+    <div class="form-group">
+      <label>Country</label>
+      <input name="country" class="form-control" required value="{{ address.country if address else '' }}">
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">💾 Save Address</button>
+  </form>
+</div>
+{% endblock %}

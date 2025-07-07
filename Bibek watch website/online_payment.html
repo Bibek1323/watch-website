@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>💳 Online Payment</h2>
+  <p>This is a placeholder for Razorpay / PhonePe / Paytm integration.</p>
+  <p>Scan the QR or click below to proceed with payment.</p>
+
+  <img src="{{ url_for('static', filename='images/qr-code.png') }}" alt="QR Code" width="200">
+
+  <!-- Simulate payment success -->
+  <form method="POST" action="{{ url_for('main.confirm_online_payment', order_id=order.id) }}">
+    <button type="submit" class="btn btn-success mt-3">✅ Payment Done</button>
+  </form>
+</div>
+{% endblock %}

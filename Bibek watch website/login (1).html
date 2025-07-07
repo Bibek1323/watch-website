@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.login-container {
+  max-width: 500px;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.login-container h2 {
+  font-family: 'Playfair Display', serif;
+  color: #b98a56;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.login-container label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+
+.login-container button {
+  width: 100%;
+  background-color: #b98a56;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.login-container button:hover {
+  background-color: #a27244;
+}
+</style>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <label for="email">{{ form.email.label }}</label>
+        {{ form.email(class="form-control") }}
+
+        <label for="password">{{ form.password.label }}</label>
+        {{ form.password(class="form-control") }}
+
+        <button type="submit">Log In</button>
+        <p style="text-align:center; margin-top:1rem;">
+    Don’t have an account? <a href="{{ url_for('main.signup') }}">Sign up</a>
+</p>
+
+    </form>
+</div>
+
+{% endblock %}

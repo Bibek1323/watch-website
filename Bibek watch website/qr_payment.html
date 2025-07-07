@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  .qr-box {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  .qr-box img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border: 2px solid #b98a56;
+    border-radius: 6px;
+    background: #f9f9f9;
+  }
+</style>
+
+
+<div class="qr-payment">
+  <h2>Scan to Pay</h2>
+  <p>Total Amount: ₹{{ total }}</p>
+  <img src="{{ url_for('static', filename='images/qr-code.png') }}" alt="QR Code" width="250">
+
+  <form action="{{ url_for('main.confirm_online_order') }}" method="POST" style="margin-top: 20px;">
+    <button type="submit" class="btn btn-success">✅ I Have Paid</button>
+  </form>
+</div>
+{% endblock %}

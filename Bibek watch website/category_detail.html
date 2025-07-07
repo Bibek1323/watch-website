@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  .collection-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-top: 2rem;
+    color: #b98a56;
+  }
+
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 3rem;
+  }
+
+  .watch-showcase {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+    text-align: center;
+  }
+
+  .watch-showcase:hover {
+    transform: translateY(-6px);
+  }
+
+  .watch-display {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .watch-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .watch-price {
+    color: #b98a56;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+  }
+
+  .watch-description {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .view-button {
+    display: inline-block;
+    background-color: #b98a56;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+  }
+
+  .view-button:hover {
+    background-color: #a27244;
+  }
+</style>
+
+<h2 class="collection-title">{{ category }} Collection</h2>
+
+<div class="collection-grid">
+  {% for watch in watches %}
+  <div class="watch-showcase animate-on-scroll">
+    <div class="watch-display">⌚</div>
+    <h3 class="watch-title">{{ watch.name }}</h3>
+    <p class="watch-price">₹{{ watch.price }}</p>
+    <p class="watch-description">{{ watch.description[:100] }}...</p>
+    <a href="{{ url_for('watch_detail', watch_id=watch.id) }}" class="view-button">View Details</a>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

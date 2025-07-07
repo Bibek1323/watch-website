@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f7f7f7; padding: 20px; }
+        .container { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { color: #28a745; }
+        .details { margin-top: 20px; }
+        .label { font-weight: bold; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>✅ Payment Received!</h2>
+        <p>Hi {{ user.username }},</p>
+
+        <p>Thank you for your online payment for your recent order at <strong>Timora</strong>.</p>
+
+        <div class="details">
+            <p><span class="label">Total Paid:</span> ₹{{ order.total_price }}</p>
+            <p><span class="label">Payment Method:</span> {{ order.payment_method }}</p>
+            <p><span class="label">Order ID:</span> {{ order.id }}</p>
+            <p><span class="label">Order Time:</span> {{ order.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+        </div>
+
+        <p>Your order is now being processed and will be shipped soon.</p>
+
+        <p>To view your order status or manage your account, visit the <a href="{{ url_for('main.account', _external=True) }}">My Account</a> page.</p>
+
+        <p>Warm regards,<br><strong>Timora Team</strong></p>
+    </div>
+</body>
+</html>

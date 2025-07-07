@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="payment-wrapper" style="max-width: 600px; margin: auto; padding: 40px; background-color: #fdf9f5; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); text-align: center; font-family: 'Segoe UI', sans-serif;">
+
+  <h2 style="color: #28a745;">💳 Online Payment</h2>
+  <p style="font-size: 18px; margin-bottom: 30px;">Scan the QR code below using your preferred UPI app to make the payment.</p>
+
+  <!-- QR Code Image -->
+  <img src="{{ url_for('static', filename='img/qr_code.png') }}" alt="QR Code" style="width: 300px; height: 300px; border: 5px solid #ddd; border-radius: 10px;">
+
+  <!-- Payment Amount Info -->
+  <p style="margin-top: 20px; font-size: 16px;"><strong>Amount to Pay:</strong> ₹{{ total }}</p>
+
+  <!-- Paid Button -->
+  <form action="{{ url_for('main.confirm_online_order') }}" method="POST" style="margin-top: 30px;">
+    <button type="submit" style="background-color: #007bff; color: white; padding: 12px 25px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+      ✅ I've Paid
+    </button>
+  </form>
+
+  <!-- Back Button (Optional) -->
+  <p style="margin-top: 20px;"><a href="{{ url_for('main.checkout') }}" style="color: #555;">← Go Back to Checkout</a></p>
+
+</div>
+{% endblock %}

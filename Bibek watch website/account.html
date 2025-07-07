@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<style>
+    .account-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-container h2 {
+  color: #b88a44;
+  margin-bottom: 20px;
+}
+
+.account-section {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.account-section h3 {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.order-card {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.btn {
+  display: inline-block;
+  background: #b88a44;
+  color: white;
+  padding: 6px 12px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.cancel-btn {
+  background-color: #c0392b;
+}
+
+</style>
+<div class="account-container">
+  <h2>👤 My Account</h2>
+
+  <div class="account-section">
+    <h3>📝 Personal Info</h3>
+    <p><strong>Username:</strong> {{ current_user.username }}</p>
+    <p><strong>Email:</strong> {{ current_user.email }}</p>
+    <a href="{{ url_for('main.change_password') }}" class="btn">Change Password</a>
+  </div>
+
+  <div class="account-section">
+    <h3>🏠 Shipping Address</h3>
+    {% if current_user.address %}
+      <p><strong>Address:</strong> {{ current_user.address }}</p>
+      <p><strong>Pin Code:</strong> {{ current_user.pincode }}</p>
+      <p><strong>City:</strong> {{ current_user.city }}</p>
+      <p><strong>State:</strong> {{ current_user.state }}</p>
+      <p><strong>Phone:</strong> {{ current_user.phone }}</p>
+    {% else %}
+      <p>No address on file.</p>
+    {% endif %}
+    <a href="{{ url_for('main.update_address') }}" class="btn">Update Address</a>
+  </div>
+
+  <div class="account-section">
+    <h3>📦 My Orders</h3>
+    {% for order in orders %}
+      <div class="order-card">
+        <p><strong>Order ID:</strong> {{ order.id }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Amount:</strong> ₹{{ order.total_price }}</p>
+        <p><strong>Payment:</strong> {{ order.payment_method }}</p>
+        <p><strong>Date:</strong> {{ order.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+        {% if order.status != 'Cancelled' %}
+          <form method="POST" action="{{ url_for('main.cancel_order', order_id=order.id) }}">
+            <button type="submit" class="cancel-btn">Cancel Order</button>
+          </form>
+        {% else %}
+          <p class="cancelled-label">Order Cancelled</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="account-section">
+    <h3>🏠 Saved Address</h3>
+    <p>{{ current_user.address or "No address saved." }}</p>
+    <a href="{{ url_for('main.update_address') }}" class="btn">Update Address</a>
+  </div>
+
+  <div class="account-section">
+    <h3>🔐 Security</h3>
+    <a href="{{ url_for('main.change_password') }}" class="btn">Change Password</a>
+  </div>
+</div>
+{% if address %}
+<div class="address-box">
+  <h4>📍 Saved Address</h4>
+  <p><strong>{{ address.name }}</strong></p>
+  <p>{{ address.address_line }}, {{ address.city }}, {{ address.state }}</p>
+  <p>{{ address.pincode }}, {{ address.country }}</p>
+  <p>📞 {{ address.phone }}</p>
+  <a href="{{ url_for('main.update_address') }}" class="btn btn-sm btn-outline-primary mt-2">Edit Address</a>
+</div>
+{% else %}
+<p>No address found. <a href="{{ url_for('main.update_address') }}">Add one</a>.</p>
+{% endif %}
+
+{% endblock %}

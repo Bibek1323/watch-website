@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+.contact-container {
+  max-width: 600px;
+  margin: 3rem auto;
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.contact-container h2 {
+  font-family: 'Playfair Display', serif;
+  color: #b98a56;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.contact-container label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #333;
+}
+
+.contact-container input,
+.contact-container textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.contact-container button {
+  width: 100%;
+  background-color: #b98a56;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  transition: background 0.3s ease;
+}
+
+.contact-container button:hover {
+  background-color: #a27244;
+}
+
+.flash.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+</style>
+
+<div class="contact-container">
+  <h2>Contact Us</h2>
+
+  <!-- ✅ Flash Message -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+
+    <label for="name">{{ form.name.label }}</label>
+    {{ form.name(class="form-control") }}
+
+    <label for="email">{{ form.email.label }}</label>
+    {{ form.email(class="form-control") }}
+
+    <label for="message">{{ form.message.label }}</label>
+    {{ form.message(class="form-control") }}
+
+    <button type="submit">Send Message</button>
+  </form>
+</div>
+
+{% endblock %}
